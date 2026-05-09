@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduBridge - Assignments</title>
+    <script src="theme-manager.js"></script>
     <link rel="stylesheet" href="dashboard.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -19,14 +20,13 @@
             <nav class="sidebar-nav">
                 <a href="dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a>
                 <a href="assignments.html" class="active"><i class="fa-solid fa-book-open"></i> Assignments</a>
-                <a href="notes.html"><i class="fa-solid fa-note-sticky"></i> Notes</a>
+                <a href="notes.html"><i class="fa-solid fa-folder-open"></i> Notes</a>
                 <a href="#"><i class="fa-solid fa-chart-pie"></i> Study Analytics</a>
                 <a href="#"><i class="fa-solid fa-bullseye"></i> Goals</a>
-                <a href="#" class="ai-link"><i class="fa-solid fa-robot"></i> AI Assistant <span class="badge-new">NEW</span></a>
-                <a href="#"><i class="fa-solid fa-bell"></i> Notifications</a>
+                <a href="#" class="ai-link"><i class="fa-solid fa-robot"></i> AI Assistant</a>
             </nav>
             <div class="sidebar-bottom">
-                <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+                <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
                 <a href="#" id="logoutBtn"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
             </div>
         </aside>
@@ -51,7 +51,7 @@
                             <option value="overdue">Overdue</option>
                         </select>
                     </div>
-                    <button class="icon-btn"><i class="fa-solid fa-bell"></i></button>
+
                     <div class="user-profile">
                         <img src="https://ui-avatars.com/api/?name=Student&background=random" alt="Avatar" id="userAvatar">
                     </div>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduBridge - Mentor Assignments</title>
+    <script src="theme-manager.js"></script>
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-layout mentor-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-icon"><i class="fa-solid fa-bridge-water"></i></span>
+                EDUBRIDGE
+            </div>
+            <nav class="sidebar-nav">
+                <a href="mentor-dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a>
+                <a href="mentor-students.html"><i class="fa-solid fa-users"></i> Students</a>
+                <a href="mentor-assignments.html" class="active"><i class="fa-solid fa-book-open"></i> Assignments</a>
+                <a href="mentor-notes.html"><i class="fa-solid fa-folder-open"></i> Notes & Resources</a>
+                <a href="mentor-doubts.html"><i class="fa-solid fa-circle-question"></i> Student Doubts</a>
+                <a href="mentor-analytics.html"><i class="fa-solid fa-chart-line"></i> Productivity & Analytics</a>
+                <a href="mentor-ai.html" class="ai-link"><i class="fa-solid fa-robot"></i> AI Insights</a>
+            </nav>
+            <div class="sidebar-bottom">
+                <a href="mentor-settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+                <a href="#" id="logoutBtn"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navbar -->
+            <header class="topbar">
+                <div class="page-title">
+                    <h2 class="gradient-text"><i class="fa-solid fa-book-open" style="margin-right: 10px; color: var(--primary-blue);"></i> Assignments</h2>
+                </div>
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="assignmentsSearch" placeholder="Search assignments...">
+                </div>
+                <div class="topbar-right">
+                    <div class="filter-dropdown">
+                        <select id="assignmentFilter" class="glass-select">
+                            <option value="All">All Statuses</option>
+                            <option value="Active">Active</option>
+                            <option value="Submitted">Submitted</option>
+                            <option value="Overdue">Overdue</option>
+                        </select>
+                    </div>
+                    <button class="glow-btn hero-btn" id="createAssignmentBtn" style="padding: 10px 20px; font-size: 0.9rem;">
+                        <span><i class="fa-solid fa-plus"></i> Create Assignment</span>
+                        <div class="btn-glow"></div>
+                    </button>
+
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=Professor&background=random" alt="Avatar" id="userAvatar">
+                        <span id="userName">Loading...</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-scrollable">
+                
+                <!-- Create Assignment Modal -->
+                <div id="createAssignmentPanel" class="glass-panel" style="display: none; margin-bottom: 30px; padding: 30px; border: 1px solid var(--primary-blue);">
+                    <div class="section-header">
+                        <h3><i class="fa-solid fa-file-circle-plus" style="color: var(--primary-purple);"></i> Create New Assignment</h3>
+                        <button class="icon-btn" id="closeCreateAssignmentBtn"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <form id="createAssignmentForm" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div style="grid-column: 1 / -1;">
+                            <label style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 8px; display: block;">Assignment Title</label>
+                            <input type="text" id="assignmentTitle" class="glass-input" placeholder="e.g., Data Structures Report" style="width: 100%;" required>
+                        </div>
+                        <div>
+                            <label style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 8px; display: block;">Subject</label>
+                            <select id="assignmentSubject" class="glass-select" style="width: 100%;">
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Chemistry">Chemistry</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 8px; display: block;">Deadline Date & Time</label>
+                            <input type="datetime-local" id="assignmentDeadline" class="glass-input" style="width: 100%;" required>
+                        </div>
+                        <div style="grid-column: 1 / -1;">
+                            <label style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 8px; display: block;">Description</label>
+                            <textarea id="assignmentDescription" class="glass-input" rows="4" placeholder="Enter assignment instructions..." style="width: 100%;" required></textarea>
+                        </div>
+                        <div style="grid-column: 1 / -1;">
+                            <label style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 8px; display: block;">Upload Assignment PDF</label>
+                            <div class="upload-zone" id="assignmentUploadZone" style="border: 2px dashed rgba(255,255,255,0.2); padding: 20px; text-align: center; border-radius: 8px; cursor: pointer;">
+                                <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2rem; color: var(--primary-blue); margin-bottom: 10px;"></i>
+                                <p style="margin-bottom: 5px;">Drag & drop your PDF here or click to browse</p>
+                                <span id="assignmentFileName" style="color: var(--text-muted); font-size: 0.8rem;">No file selected</span>
+                                <input type="file" id="assignmentFileInput" accept="application/pdf" style="display: none;">
+                            </div>
+                        </div>
+                        <div style="grid-column: 1 / -1; display: flex; justify-content: flex-end; margin-top: 10px;">
+                            <button type="submit" class="glow-btn">
+                                <span><i class="fa-solid fa-paper-plane"></i> Publish Assignment</span>
+                                <div class="btn-glow"></div>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Empty State Alert (Hidden by default) -->
+                <div id="emptyStateAssignments" class="empty-state-alert glass-panel" style="display: none;">
+                    <div class="alert-icon"><i class="fa-solid fa-file-excel"></i></div>
+                    <div class="alert-text">
+                        <h3>No assignments created yet.</h3>
+                        <p>Create your first assignment to track student progress.</p>
+                    </div>
+                </div>
+
+                <!-- Assignments Grid -->
+                <div class="doubts-grid" id="assignmentsGrid">
+                    <!-- Cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- View Assignment Modal -->
+    <div id="viewAssignmentModal" class="pdf-viewer-overlay" style="display: none;">
+        <div class="pdf-viewer-container glass-panel-heavy" style="max-width: 600px; max-height: 90vh; overflow-y: auto; height: auto;">
+            <div class="pdf-viewer-header">
+                <div class="pdf-title-info">
+                    <h3 id="viewTitle">Assignment Details</h3>
+                </div>
+                <div class="pdf-controls">
+                    <button class="icon-btn close-btn" id="closeViewBtn"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+            <div class="pdf-viewer-body" id="viewBody" style="padding: 25px;">
+                <!-- Content injected dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="mentor-assignments.js"></script>
+</body>
+
+</html>

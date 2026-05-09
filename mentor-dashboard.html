@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduBridge - Mentor Dashboard</title>
+    <script src="theme-manager.js"></script>
     <link rel="stylesheet" href="dashboard.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap"
@@ -23,17 +24,16 @@
                 EDUBRIDGE
             </div>
             <nav class="sidebar-nav">
-                <a href="#" class="active"><i class="fa-solid fa-house"></i> Dashboard</a>
-                <a href="#"><i class="fa-solid fa-users"></i> Students</a>
-                <a href="#"><i class="fa-solid fa-book-open"></i> Assignments</a>
-                <a href="#"><i class="fa-solid fa-folder-open"></i> Notes & Resources</a>
-                <a href="#"><i class="fa-solid fa-chart-line"></i> Productivity Analytics</a>
-                <a href="#" class="ai-link"><i class="fa-solid fa-robot"></i> AI Insights <span
-                        class="badge-new">NEW</span></a>
-                <a href="#"><i class="fa-solid fa-bell"></i> Notifications</a>
+                <a href="mentor-dashboard.html" class="active"><i class="fa-solid fa-house"></i> Dashboard</a>
+                <a href="mentor-students.html"><i class="fa-solid fa-users"></i> Students</a>
+                <a href="mentor-assignments.html"><i class="fa-solid fa-book-open"></i> Assignments</a>
+                <a href="mentor-notes.html"><i class="fa-solid fa-folder-open"></i> Notes & Resources</a>
+                <a href="mentor-doubts.html"><i class="fa-solid fa-circle-question"></i> Student Doubts</a>
+                <a href="mentor-analytics.html"><i class="fa-solid fa-chart-line"></i> Productivity & Analytics</a>
+                <a href="mentor-ai.html" class="ai-link"><i class="fa-solid fa-robot"></i> AI Insights</a>
             </nav>
             <div class="sidebar-bottom">
-                <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
+                <a href="mentor-settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
                 <a href="#" id="logoutBtn"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
             </div>
         </aside>
@@ -51,7 +51,7 @@
                         <i class="fa-solid fa-users streak-icon"></i>
                         <span id="activeStudentsNav">0</span> Active Now
                     </div>
-                    <button class="icon-btn"><i class="fa-solid fa-bell"></i></button>
+
                     <div class="user-profile">
                         <img src="https://ui-avatars.com/api/?name=Professor&background=random" alt="Avatar"
                             id="userAvatar">

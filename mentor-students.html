@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduBridge - Mentor Students</title>
+    <script src="theme-manager.js"></script>
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="dashboard-layout mentor-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-icon"><i class="fa-solid fa-bridge-water"></i></span>
+                EDUBRIDGE
+            </div>
+            <nav class="sidebar-nav">
+                <a href="mentor-dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a>
+                <a href="mentor-students.html" class="active"><i class="fa-solid fa-users"></i> Students</a>
+                <a href="mentor-assignments.html"><i class="fa-solid fa-book-open"></i> Assignments</a>
+                <a href="mentor-notes.html"><i class="fa-solid fa-folder-open"></i> Notes & Resources</a>
+                <a href="mentor-doubts.html"><i class="fa-solid fa-circle-question"></i> Student Doubts</a>
+                <a href="mentor-analytics.html"><i class="fa-solid fa-chart-line"></i> Productivity & Analytics</a>
+                <a href="mentor-ai.html" class="ai-link"><i class="fa-solid fa-robot"></i> AI Insights</a>
+            </nav>
+            <div class="sidebar-bottom">
+                <a href="mentor-settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+                <a href="#" id="logoutBtn"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navbar -->
+            <header class="topbar">
+                <div class="page-title">
+                    <h2 class="gradient-text"><i class="fa-solid fa-users" style="margin-right: 10px; color: var(--primary-blue);"></i> Students</h2>
+                </div>
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="studentsSearch" placeholder="Search by name, email, or course...">
+                </div>
+                <div class="topbar-right">
+                    <div class="filter-dropdown">
+                        <select id="studentFilter" class="glass-select">
+                            <option value="All">All Students</option>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <button class="glow-btn hero-btn" id="addStudentBtn" style="padding: 10px 20px; font-size: 0.9rem;">
+                        <span><i class="fa-solid fa-user-plus"></i> Add Student</span>
+                        <div class="btn-glow"></div>
+                    </button>
+
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=Professor&background=random" alt="Avatar" id="userAvatar">
+                        <span id="userName">Loading...</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-scrollable">
+                
+                <!-- Add Student Modal (Hidden by default) -->
+                <div id="addStudentPanel" class="glass-panel" style="display: none; margin-bottom: 30px; padding: 30px; border: 1px solid var(--primary-blue);">
+                    <div class="section-header">
+                        <h3><i class="fa-solid fa-user-plus" style="color: var(--primary-purple);"></i> Add New Student</h3>
+                        <button class="icon-btn" id="closeAddStudentBtn"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <form id="addStudentForm" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <label style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 8px; display: block;">Full Name</label>
+                            <input type="text" id="addStudentName" class="glass-input" placeholder="e.g., Aarav Sharma" style="width: 100%;" required>
+                        </div>
+                        <div>
+                            <label style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 8px; display: block;">Email Address</label>
+                            <input type="email" id="addStudentEmail" class="glass-input" placeholder="aarav@edubridge.com" style="width: 100%;" required>
+                        </div>
+                        <div>
+                            <label style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 8px; display: block;">Enrolled Course</label>
+                            <select id="addStudentCourse" class="glass-select" style="width: 100%;">
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Chemistry">Chemistry</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 8px; display: block;">Status</label>
+                            <select id="addStudentStatus" class="glass-select" style="width: 100%;">
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <div style="grid-column: 1 / -1; display: flex; justify-content: flex-end; margin-top: 10px;">
+                            <button type="submit" class="glow-btn">
+                                <span><i class="fa-solid fa-check"></i> Enroll Student</span>
+                                <div class="btn-glow"></div>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Empty State Alert (Hidden by default) -->
+                <div id="emptyStateStudents" class="empty-state-alert glass-panel" style="display: none;">
+                    <div class="alert-icon"><i class="fa-solid fa-users-slash"></i></div>
+                    <div class="alert-text">
+                        <h3>No students found.</h3>
+                        <p>Enroll new students to start tracking their progress.</p>
+                    </div>
+                </div>
+
+                <!-- Students Grid -->
+                <div class="doubts-grid" id="studentsGrid">
+                    <!-- Cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="mentor-students.js"></script>
+</body>
+
+</html>

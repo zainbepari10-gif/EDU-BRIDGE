@@ -12,6 +12,18 @@
     --warning: #ffaa00;
 }
 
+body.light-theme {
+    --bg-color: #f4f6f9;
+    --sidebar-bg: #ffffff;
+    --primary-blue: #0088ff;
+    --primary-purple: #7b00ff;
+    --text-main: #1a1b26;
+    --text-muted: #64748b;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    color-scheme: light;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -23,6 +35,7 @@ body {
     background-color: var(--bg-color);
     color: var(--text-main);
     overflow: hidden;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 /* Glass Panel Utility */
@@ -1507,3 +1520,160 @@ button:disabled {
 .pdf-mock-lines:nth-child(3n) { width: 90%; }
 .watermark { position: absolute; bottom: 30px; right: 30px; color: #ddd; font-size: 0.9rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
 .page-navigation { display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.05); padding: 10px 20px; border-radius: 20px; position: sticky; bottom: 20px; backdrop-filter: blur(10px); }
+
+/* ---- STUDENT DOUBTS PANEL STYLES ---- */
+.doubts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 30px;
+}
+
+.doubt-card {
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    background: rgba(15, 15, 25, 0.6);
+    border: 1px solid rgba(157, 0, 255, 0.3);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(157, 0, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.doubt-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 4px;
+    background: linear-gradient(90deg, var(--primary-purple), var(--primary-blue));
+}
+
+.doubt-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(157, 0, 255, 0.2);
+    border-color: rgba(0, 225, 255, 0.4);
+}
+
+.doubt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 15px;
+}
+
+.doubt-student-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.doubt-student-info img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-purple);
+}
+
+.doubt-meta h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.doubt-meta p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.doubt-meta p i {
+    margin-right: 5px;
+    color: var(--primary-blue);
+}
+
+.doubt-time {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 10px;
+    border-radius: 12px;
+}
+
+.doubt-body {
+    margin-bottom: 20px;
+    flex: 1;
+}
+
+.doubt-text {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: var(--text-main);
+    font-style: italic;
+    margin-bottom: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 15px;
+    border-radius: 12px;
+    border-left: 3px solid var(--primary-blue);
+}
+
+.doubt-attachment {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(0, 225, 255, 0.1);
+    color: var(--primary-blue);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    border: 1px solid rgba(0, 225, 255, 0.2);
+    transition: all 0.2s ease;
+}
+
+.doubt-attachment:hover {
+    background: rgba(0, 225, 255, 0.2);
+}
+
+.doubt-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 15px;
+}
+
+.glass-select {
+    background: rgba(15, 15, 25, 0.8);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 15px;
+    border-radius: 12px;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+}
+
+.glass-select option {
+    background: #0f0f19;
+    color: white;
+}
+
+.glass-input {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 15px;
+    border-radius: 12px;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+    resize: none;
+    transition: border-color 0.3s ease;
+    color-scheme: dark;
+}
+
+.glass-input:focus {
+    border-color: var(--primary-purple);
+}
+

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduBridge - Productivity & Analytics</title>
+    <script src="theme-manager.js"></script>
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="dashboard-layout mentor-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-icon"><i class="fa-solid fa-bridge-water"></i></span>
+                EDUBRIDGE
+            </div>
+            <nav class="sidebar-nav">
+                <a href="mentor-dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a>
+                <a href="mentor-students.html"><i class="fa-solid fa-users"></i> Students</a>
+                <a href="mentor-assignments.html"><i class="fa-solid fa-book-open"></i> Assignments</a>
+                <a href="mentor-notes.html"><i class="fa-solid fa-folder-open"></i> Notes & Resources</a>
+                <a href="mentor-doubts.html"><i class="fa-solid fa-circle-question"></i> Student Doubts</a>
+                <a href="mentor-analytics.html" class="active"><i class="fa-solid fa-chart-line"></i> Productivity & Analytics</a>
+                <a href="mentor-ai.html" class="ai-link"><i class="fa-solid fa-robot"></i> AI Insights</a>
+            </nav>
+            <div class="sidebar-bottom">
+                <a href="mentor-settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+                <a href="#" id="logoutBtn"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navbar -->
+            <header class="topbar">
+                <div class="page-title">
+                    <h2 class="gradient-text"><i class="fa-solid fa-chart-line" style="margin-right: 10px; color: var(--primary-purple);"></i> Productivity & Analytics</h2>
+                </div>
+                <div class="topbar-right" style="margin-left: auto;">
+                    <button class="glow-btn outline" id="exportReportBtn" style="padding: 8px 15px; font-size: 0.85rem;">
+                        <i class="fa-solid fa-download"></i> Export Report
+                    </button>
+
+                    <div class="user-profile">
+                        <img src="https://ui-avatars.com/api/?name=Professor&background=random" alt="Avatar" id="userAvatar">
+                        <span id="userName">Loading...</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-scrollable">
+                
+                <!-- Quick Stats Grid -->
+                <div class="stats-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 30px;">
+                    <div class="stat-card glass-panel" style="padding: 20px;">
+                        <div class="stat-header">
+                            <div class="stat-icon" style="background: rgba(0, 225, 255, 0.1); color: var(--primary-blue);"><i class="fa-solid fa-users"></i></div>
+                            <span class="trend positive"><i class="fa-solid fa-arrow-up"></i> Active</span>
+                        </div>
+                        <div class="stat-info">
+                            <h2 id="totalStudentsStat">0</h2>
+                            <p>Total Students</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card glass-panel" style="padding: 20px;">
+                        <div class="stat-header">
+                            <div class="stat-icon purple"><i class="fa-solid fa-bolt"></i></div>
+                            <span class="trend positive" id="avgProductivityTrend"><i class="fa-solid fa-arrow-up"></i> +5%</span>
+                        </div>
+                        <div class="stat-info">
+                            <h2 id="avgProductivityStat">0%</h2>
+                            <p>Avg. Class Productivity</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card glass-panel" style="padding: 20px;">
+                        <div class="stat-header">
+                            <div class="stat-icon" style="background: rgba(255, 51, 102, 0.1); color: var(--danger);"><i class="fa-solid fa-check-double"></i></div>
+                        </div>
+                        <div class="stat-info">
+                            <h2 id="assignmentCompletionStat">0%</h2>
+                            <p>Assignment Completion</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card glass-panel" style="padding: 20px;">
+                        <div class="stat-header">
+                            <div class="stat-icon orange"><i class="fa-solid fa-fire"></i></div>
+                        </div>
+                        <div class="stat-info">
+                            <h2 id="avgStreakStat">0 Days</h2>
+                            <p>Avg. Study Streak</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Chart Section -->
+                <div class="chart-container glass-panel" style="margin-bottom: 30px; padding: 25px;">
+                    <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <div>
+                            <h3 style="margin-bottom: 5px;">Class Productivity Trend</h3>
+                            <p style="color: var(--text-muted); font-size: 0.85rem;">Last 7 Days overall performance index</p>
+                        </div>
+                        <div class="filter-dropdown">
+                            <select class="glass-select" style="padding: 5px 10px; font-size: 0.8rem;">
+                                <option>Last 7 Days</option>
+                                <option>Last 30 Days</option>
+                                <option>This Semester</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper" style="height: 300px; position: relative;">
+                        <canvas id="productivityChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Bottom Grid: Top Performers & Action Required -->
+                <div class="main-grid split-grid-student" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    
+                    <!-- Top Performers -->
+                    <div class="glass-panel" style="padding: 25px;">
+                        <div class="section-header" style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; margin-bottom: 15px;">
+                            <h3 style="color: var(--success);"><i class="fa-solid fa-trophy"></i> Top Performers</h3>
+                        </div>
+                        <div id="topPerformersList" style="display: flex; flex-direction: column; gap: 15px;">
+                            <!-- Dynamically injected -->
+                            <div style="color: var(--text-muted); font-size: 0.9rem; text-align: center;">Loading...</div>
+                        </div>
+                    </div>
+
+                    <!-- AI Alert: Requires Attention -->
+                    <div class="glass-panel" style="padding: 25px; border: 1px solid rgba(255, 51, 102, 0.3); background: linear-gradient(180deg, rgba(20,20,30,0.8) 0%, rgba(255, 51, 102, 0.05) 100%);">
+                        <div class="section-header" style="border-bottom: 1px solid rgba(255, 51, 102, 0.2); padding-bottom: 15px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="color: var(--danger);"><i class="fa-solid fa-triangle-exclamation"></i> Requires Attention</h3>
+                            <span style="background: rgba(255,51,102,0.1); color: var(--danger); padding: 3px 8px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;"><i class="fa-solid fa-robot"></i> AI Detected</span>
+                        </div>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">The AI system has identified students who may be falling behind based on low productivity scores and missed deadlines.</p>
+                        <div id="attentionRequiredList" style="display: flex; flex-direction: column; gap: 15px;">
+                            <!-- Dynamically injected -->
+                            <div style="color: var(--text-muted); font-size: 0.9rem; text-align: center;">Loading...</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="mentor-analytics.js"></script>
+</body>
+
+</html>
